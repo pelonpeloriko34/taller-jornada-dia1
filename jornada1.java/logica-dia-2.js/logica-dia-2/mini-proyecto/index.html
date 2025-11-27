@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Perros Aleatorios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://www.itsva.edu.mx/archivos/imagenes/cabecera2018.png" alt="ITSVA" class="header-logo">
+            <h1>🐕 Galería de Perros Aleatorios</h1>
+            <p>Descubre hermosas imágenes de perros de diferentes razas</p>
+        </header>
+
+        <div class="controls">
+            <button id="newDogBtn" class="btn btn-primary">Nuevo Perro</button>
+            <button id="multipleDogsBtn" class="btn btn-secondary">Cargar 6 Perros</button>
+            <div class="breed-selector">
+                <label for="breedSelect">Filtrar por raza:</label>
+                <select id="breedSelect">
+                    <option value="">Todas las razas</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="loadingSpinner" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Cargando perro...</p>
+        </div>
+
+        <div id="gallery" class="gallery">
+            <div id="dogContainer" class="dog-card">
+                <img id="dogImage" src="" alt="Imagen de perro" />
+                <p id="dogBreed" class="breed-name"></p>
+            </div>
+        </div>
+
+        <div id="multiGallery" class="multi-gallery"></div>
+
+        <footer>
+            <p>Datos proporcionados por <a href="https://dog.ceo/dog-api/" target="_blank">Dog CEO API</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
