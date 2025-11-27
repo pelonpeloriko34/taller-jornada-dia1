@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pokédex - API Día 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #searchInput {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            width: 300px;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        #searchButton {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #searchButton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #searchButton:active {
+            transform: translateY(0);
+        }
+
+        #app {
+            display: flex;
+            justify-content: center;
+        }
+
+        .pokemon-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pokemon-header {
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .pokemon-header h1 {
+            color: #333;
+            font-size: 2em;
+            text-shadow: none;
+        }
+
+        .pokemon-id {
+            color: #667eea;
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+
+        .pokemon-image {
+            margin: 30px 0;
+        }
+
+        .pokemon-image img {
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .pokemon-stats {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 1.1em;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-row span:first-child {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-row span:last-child {
+            color: #333;
+        }
+
+        .pokemon-abilities {
+            margin-top: 20px;
+        }
+
+        .pokemon-abilities h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .abilities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ability {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95em;
+        }
+
+        .ability span:first-child {
+            min-width: 100px;
+            font-weight: bold;
+            color: #667eea;
+            text-align: left;
+        }
+
+        .ability-bar {
+            flex: 1;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .ability-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .ability span:last-child {
+            min-width: 40px;
+            text-align: right;
+            color: #333;
+        }
+
+        .error {
+            color: #f5576c;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            #searchInput {
+                width: 100%;
+            }
+
+            #searchButton {
+                width: 100%;
+            }
+
+            .pokemon-image img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .pokemon-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h1>🔴 Pokédex 🔴</h1>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Busca un Pokémon (ej: Pikachu, Charizard...)" />
+                <button id="searchButton">Buscar</button>
+            </div>
+        </div>
+        <div id="app"></div>
+    </main>
+
+    <script src="api.js" defer></script>
+</body>
+</html>

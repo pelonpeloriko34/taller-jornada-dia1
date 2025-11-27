@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj Digital con Alarma</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Saludo según hora del día -->
+        <div class="greeting" id="greeting">Buenos días</div>
+
+        <!-- Display principal del reloj -->
+        <div class="clock-display">
+            <div class="time" id="time">00:00:00</div>
+            <div class="format-toggle">
+                <button class="btn-toggle" id="toggleFormat">24h</button>
+            </div>
+        </div>
+
+        <!-- Display de fecha -->
+        <div class="date-display" id="date">
+            Lunes, 01 de Enero de 2025
+        </div>
+
+        <!-- Sección de alarma -->
+        <div class="alarm-section">
+            <h2>Configurar Alarma</h2>
+            
+            <!-- Indicador de alarma activa -->
+            <div class="alarm-status" id="alarmStatus">
+                <div class="alarm-indicator" id="alarmIndicator"></div>
+                <span id="alarmMessage">Sin alarma activa</span>
+            </div>
+
+            <!-- Inputs para configurar alarma -->
+            <div class="alarm-config">
+                <label for="alarmTime">Hora de Alarma:</label>
+                <input type="time" id="alarmTime" placeholder="HH:MM">
+            </div>
+
+            <!-- Botones de control -->
+            <div class="button-group">
+                <button class="btn btn-set" id="setAlarmBtn">Establecer Alarma</button>
+                <button class="btn btn-cancel" id="cancelAlarmBtn" disabled>Cancelar Alarma</button>
+            </div>
+        </div>
+
+        <!-- Área de notificación -->
+        <div class="notification-area" id="notificationArea">
+            <div class="alarm-notification" id="alarmNotification">
+                <h3>¡ALARMA!</h3>
+                <p>La alarma ha sonado</p>
+                <button class="btn btn-dismiss" id="dismissAlarmBtn">Desactivar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>

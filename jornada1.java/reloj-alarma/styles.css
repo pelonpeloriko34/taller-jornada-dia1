@@ -1,0 +1,406 @@
+/* ====================================
+   RELOJ DIGITAL CON ALARMA - ESTILOS
+   ==================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: #1a1a2e;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    border: 3px solid #16213e;
+}
+
+/* ====== SALUDO ====== */
+.greeting {
+    text-align: center;
+    font-size: 24px;
+    color: #00ff88;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    transition: all 0.3s ease;
+}
+
+/* ====== DISPLAY DEL RELOJ ====== */
+.clock-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.time {
+    font-size: 72px;
+    color: #00ff88;
+    font-weight: bold;
+    letter-spacing: 8px;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.8),
+                 0 0 40px rgba(0, 255, 136, 0.4);
+    background: #0f3a1a;
+    padding: 20px 30px;
+    border-radius: 15px;
+    border: 2px solid #00ff88;
+    font-family: 'Courier New', monospace;
+    transition: all 0.1s ease;
+}
+
+/* Efecto de parpadeo cuando suena alarma */
+.time.alarm-blink {
+    animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+        text-shadow: 0 0 20px rgba(0, 255, 136, 0.8),
+                     0 0 40px rgba(0, 255, 136, 0.4);
+    }
+    51%, 100% {
+        opacity: 0.2;
+        text-shadow: 0 0 5px rgba(0, 255, 136, 0.2);
+    }
+}
+
+.format-toggle {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-toggle {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-toggle:active {
+    transform: translateY(0);
+}
+
+/* ====== DISPLAY DE FECHA ====== */
+.date-display {
+    text-align: center;
+    font-size: 18px;
+    color: #00ccff;
+    margin-bottom: 30px;
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+    letter-spacing: 1px;
+}
+
+/* ====== SECCIÓN DE ALARMA ====== */
+.alarm-section {
+    background: #16213e;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #0f3a1a;
+    margin-bottom: 30px;
+}
+
+.alarm-section h2 {
+    color: #00ff88;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+/* Indicador de alarma activa */
+.alarm-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 12px;
+    background: rgba(0, 255, 136, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid #00ff88;
+}
+
+.alarm-indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #666;
+    transition: all 0.3s ease;
+}
+
+.alarm-indicator.active {
+    background: #ff4444;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(255, 68, 68, 0);
+    }
+}
+
+#alarmMessage {
+    color: #00ff88;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#alarmMessage.active {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+/* Configuración de alarma */
+.alarm-config {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alarm-config label {
+    color: #00ccff;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.alarm-config input {
+    padding: 12px;
+    border: 2px solid #00ff88;
+    border-radius: 8px;
+    background: #0f1e2e;
+    color: #00ff88;
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+}
+
+.alarm-config input:focus {
+    outline: none;
+    border-color: #00ccff;
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+    background: #1a2e3e;
+}
+
+.alarm-config input::placeholder {
+    color: #666;
+}
+
+/* Botones */
+.button-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 200px;
+}
+
+.btn-set {
+    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    color: #000;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+}
+
+.btn-set:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.6);
+}
+
+.btn-set:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-set:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-cancel {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.btn-cancel:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+.btn-cancel:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-cancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ====== ÁREA DE NOTIFICACIÓN ====== */
+.notification-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0);
+    pointer-events: none;
+    transition: background 0.3s ease;
+}
+
+.notification-area.active {
+    background: rgba(0, 0, 0, 0.8);
+    pointer-events: all;
+}
+
+.alarm-notification {
+    background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 20px 60px rgba(255, 68, 68, 0.6);
+    transform: scale(0);
+    opacity: 0;
+    transition: all 0.3s ease;
+    animation: none;
+}
+
+.alarm-notification.active {
+    transform: scale(1);
+    opacity: 1;
+    animation: alarmPulse 0.6s infinite;
+}
+
+@keyframes alarmPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 20px 60px rgba(255, 68, 68, 0.6);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 20px 80px rgba(255, 68, 68, 0.8);
+    }
+}
+
+.alarm-notification h3 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    letter-spacing: 3px;
+    animation: blink 0.5s infinite;
+}
+
+.alarm-notification p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    opacity: 0.95;
+}
+
+.btn-dismiss {
+    background: white;
+    color: #ff4444;
+    padding: 12px 30px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-dismiss:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.btn-dismiss:active {
+    transform: scale(0.95);
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 600px) {
+    .container {
+        padding: 25px;
+    }
+
+    .time {
+        font-size: 48px;
+        padding: 15px 20px;
+        letter-spacing: 5px;
+    }
+
+    .greeting {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .date-display {
+        font-size: 14px;
+    }
+
+    .alarm-section h2 {
+        font-size: 16px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .btn {
+        max-width: 100%;
+    }
+
+    .alarm-notification h3 {
+        font-size: 24px;
+    }
+
+    .alarm-notification p {
+        font-size: 16px;
+    }
+}

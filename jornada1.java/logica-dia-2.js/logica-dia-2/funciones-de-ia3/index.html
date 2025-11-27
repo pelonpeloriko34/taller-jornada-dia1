@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Validador de palíndromos</title>
+	<style>
+		body{font-family:Segoe UI,Arial,sans-serif;background:#f7f7f7;margin:0;padding:1.5rem}
+		.card{max-width:680px;margin:2rem auto;background:#fff;padding:1.25rem;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+		h1{margin:0 0 .5rem;font-size:1.4rem}
+		p{margin:.25rem 0 1rem;color:#444}
+		input[type="text"]{width:100%;Padding:.6rem;border:1px solid #cfcfcf;border-radius:6px;font-size:1rem}
+		.controls{margin-top:.75rem}
+		button{padding:.5rem .8rem;font-size:1rem;border-radius:6px;border:1px solid #bdbdbd;background:#fafafa;cursor:pointer}
+		button:active{transform:translateY(1px)}
+		.result{margin-top:1rem;font-weight:700}
+	</style>
+</head>
+<body>
+	<main class="card" role="main">
+		<h1>Validador de palíndromos</h1>
+		<p>Escribe una palabra o frase y pulsa <strong>Comprobar</strong>. Se ignoran espacios y mayúsculas.</p>
+
+		<form id="form">
+			<label for="texto" class="sr-only">Texto a comprobar</label>
+			<input id="texto" type="text" placeholder="Ej. Anita lava la tina" aria-label="Texto a validar" autocomplete="off">
+			<div class="controls">
+				<button id="comprobar" type="submit">Comprobar</button>
+				<button id="limpiar" type="button">Limpiar</button>
+			</div>
+			<div id="mensaje" class="result" role="status" aria-live="polite"></div>
+		</form>
+	</main>
+
+	<script src="./palindromo.js"></script>
+	<script>
+		const form = document.getElementById('form');
+		const input = document.getElementById('texto');
+		const mensaje = document.getElementById('mensaje');
+		const limpiar = document.getElementById('limpiar');
+
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const texto = input.value.trim();
+			if (!texto) {
+				mensaje.textContent = 'Introduce texto para comprobar.';
+				mensaje.style.color = '#555';
+				return;
+			}
+
+			// usa la función esPalindromo definida en palindromo.js
+			const es = typeof esPalindromo === 'function' && esPalindromo(texto);
+			if (es) {
+				mensaje.textContent = `"${texto}" es un palíndromo.`;
+				mensaje.style.color = 'green';
+			} else {
+				mensaje.textContent = `"${texto}" no es un palíndromo.`;
+				mensaje.style.color = 'crimson';
+			}
+		});
+
+		limpiar.addEventListener('click', () => {
+			input.value = '';
+			mensaje.textContent = '';
+			input.focus();
+		});
+	</script>
+</body>
+</html>
